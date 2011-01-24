@@ -11,42 +11,138 @@
 
 namespace Application\SandboxBundle\Entity;
 
+/**
+ * @orm:Entity(repositoryClass="PostRepository")
+ */
 class Post
 {
+    /**
+     * @orm:Id
+     * @orm:Column(type="integer")
+     * @orm:GeneratedValue
+     * @validation:AssertType("integer")
+     */
     protected $id;
 
+    /**
+     * @orm:Column(type="string", length="255")
+     * @validation:AssertType("string")
+     * @validation:MaxLength(255)
+     * @validation:NotNull
+     */
     protected $title;
 
+    /**
+     * @orm:Column(type="string", length="255")
+     * @validation:AssertType("string")
+     * @validation:MaxLength(255)
+     * @validation:NotNull
+     */
     protected $slug;
 
+    /**
+     * @orm:Column(type="text")
+     * @validation:AssertType("string")
+     * @validation:NotNull
+     */
     protected $abstract;
 
+    /**
+     * @orm:Column(type="text")
+     * @validation:AssertType("string")
+     * @validation:NotNull
+     */
     protected $content;
 
+    /**
+     * @orm:ManyToMany(targetEntity="Tag", inversedBy="posts")
+     * @validation:AssertType("Application\SandboxBundle\Entity\Tag")
+     * @validation:NotNull
+     */
     protected $tags;
 
+    /**
+     * @orm:OneToMany(targetEntity="Comment", mappedBy="post")
+     * @validation:AssertType("Application\SandboxBundle\Entity\Comment")
+     * @validation:NotNull
+     */
     protected $comments;
 
+    /**
+     * @orm:Column(type="boolean")
+     * @validation:AssertType("boolean")
+     * @validation:NotNull
+     */
     protected $enabled;
 
+    /**
+     * @orm:Column(type="datetime", nullable="true")
+     * @validation:AssertType("\DateTime")
+     */
     protected $publicationDateStart;
 
+    /**
+     * @orm:Column(type="datetime")
+     * @validation:AssertType("\DateTime")
+     * @validation:NotNull
+     */
     protected $createdAt;
 
+    /**
+     * @orm:Column(type="datetime")
+     * @validation:AssertType("\DateTime")
+     * @validation:NotNull
+     */
     protected $updatedAt;
 
+    /**
+     * @orm:Column(type="boolean")
+     * @validation:AssertType("boolean")
+     * @validation:NotNull
+     */
     protected $commentsEnabled = true;
 
+    /**
+     * @orm:Column(type="datetime", nullable="true")
+     * @validation:AssertType("\DateTime")
+     */
     protected $commentsCloseAt;
 
+    /**
+     * @orm:Column(type="integer")
+     * @validation:AssertType("integer")
+     * @validation:NotNull
+     */
     protected $commentsDefaultStatus;
 
+    /**
+     * @orm:ManyToOne(targetEntity="Author")
+     * @validation:AssertType("Application\SandboxBundle\Entity\Author")
+     * @validation:NotNull
+     */
     protected $author;
 
     public function __construct()
     {
         $this->tags     = new \Doctrine\Common\Collections\ArrayCollection;
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection;
+    }
+
+    /**
+     * @orm:PrePersist
+     */
+    public function prePersist()
+    {
+        $this->setCreatedAt(new \DateTime);
+        $this->setUpdatedAt(new \DateTime);
+    }
+
+    /**
+     * @orm:PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime);
     }
 
     public function getId()
@@ -268,17 +364,6 @@ class Post
     public function setTags($tags)
     {
         $this->tags = $tags;
-    }
-
-    public function prePersist()
-    {
-        $this->setCreatedAt(new \DateTime);
-        $this->setUpdatedAt(new \DateTime);
-    }
-
-    public function preUpdate()
-    {
-        $this->setUpdatedAt(new \DateTime);
     }
 
     public function getYear()

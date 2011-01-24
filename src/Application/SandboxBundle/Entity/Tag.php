@@ -11,21 +11,77 @@
 
 namespace Application\SandboxBundle\Entity;
 
+/**
+ * @orm:Entity
+ */
 class Tag
 {
+    /**
+     * @orm:Id
+     * @orm:Column(type="integer")
+     * @orm:GeneratedValue
+     * @validation:AssertType("integer")
+     */
     protected $id;
 
+    /**
+     * @orm:Column(type="string", length="255")
+     * @validation:AssertType("string")
+     * @validation:MaxLength(255)
+     * @validation:NotNull
+     */
     protected $name;
 
+    /**
+     * @orm:Column(type="string", length="255")
+     * @validation:AssertType("string")
+     * @validation:MaxLength(255)
+     * @validation:NotNull
+     */
     protected $slug;
 
+    /**
+     * @orm:Column(type="datetime")
+     * @validation:AssertType("\DateTime")
+     */
     protected $createdAt;
 
+    /**
+     * @orm:Column(type="datetime")
+     * @validation:AssertType("\DateTime")
+     */
     protected $updatedAt;
 
+    /**
+     * @orm:Column(type="boolean")
+     * @validation:AssertType("boolean")
+     * @validation:NotNull
+     */
     protected $enabled;
 
+    /**
+     * @orm:ManyToMany(targetEntity="Post", inversedBy="tags")
+     * @validation:AssertType("Application\SandboxBundle\Entity\Post")
+     * @validation:NotNull
+     */
     protected $posts;
+
+    /**
+     * @orm:PrePersist
+     */
+    public function prePersist()
+    {
+        $this->setCreatedAt(new \DateTime);
+        $this->setUpdatedAt(new \DateTime);
+    }
+
+    /**
+     * @orm:PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime);
+    }
 
     public function getId()
     {
@@ -132,17 +188,6 @@ class Tag
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    public function prePersist()
-    {
-        $this->setCreatedAt(new \DateTime);
-        $this->setUpdatedAt(new \DateTime);
-    }
-
-    public function preUpdate()
-    {
-        $this->setUpdatedAt(new \DateTime);
     }
 
     /**

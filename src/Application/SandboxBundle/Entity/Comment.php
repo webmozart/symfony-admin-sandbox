@@ -11,29 +11,105 @@
 
 namespace Application\SandboxBundle\Entity;
 
+/**
+ * @orm:Entity
+ */
 class Comment
 {
-    const STATUS_MODERATE   = 2;
-    const STATUS_VALID   = 1;
     const STATUS_INVALID = 0;
+    const STATUS_VALID = 1;
+    const STATUS_MODERATE = 2;
 
+    protected static $statusCodes = array(
+        self::STATUS_MODERATE => 'moderate',
+        self::STATUS_INVALID => 'invalid',
+        self::STATUS_VALID   => 'valid',
+    );
+
+    /**
+     * @orm:Id
+     * @orm:Column(type="integer")
+     * @orm:GeneratedValue
+     * @validation:AssertType("integer")
+     */
     protected $id;
 
+    /**
+     * @orm:Column(type="string", length="255")
+     * @validation:AssertType("string")
+     * @validation:MaxLength(255)
+     * @validation:NotNull
+     */
     protected $name;
 
+    /**
+     * @orm:Column(type="string", length="255")
+     * @validation:Email
+     * @validation:MaxLength(255)
+     * @validation:NotNull
+     */
     protected $email;
 
+    /**
+     * @orm:Column(type="string", length="255")
+     * @validation:Url
+     * @validation:MaxLength(255)
+     * @validation:NotNull
+     */
     protected $url;
 
+    /**
+     * @orm:Column(type="text")
+     * @validation:AssertType("string")
+     * @validation:NotNull
+     */
     protected $message;
 
+    /**
+     * @orm:Column(type="datetime")
+     * @validation:AssertType("\DateTime")
+     * @validation:NotNull
+     */
     protected $createdAt;
 
+    /**
+     * @orm:Column(type="datetime")
+     * @validation:AssertType("\DateTime")
+     * @validation:NotNull
+     */
     protected $updatedAt;
 
+    /**
+     * @orm:Column(type="integer")
+     * @validation:AssertType("integer")
+     * @validation:Choice(callback="getStatuses")
+     * @validation:NotNull
+     */
     protected $status = self::STATUS_VALID;
 
+    /**
+     * @orm:ManyToOne(targetEntity="Post", inversedBy="comments")
+     * @validation:AssertType("Application\SandboxBundle\Entity\Post")
+     * @validation:NotNull
+     */
     protected $post;
+
+    /**
+     * @orm:PrePersist
+     */
+    public function prePersist()
+    {
+        $this->setCreatedAt(new \DateTime);
+        $this->setUpdatedAt(new \DateTime);
+    }
+
+    /**
+     * @orm:PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime);
+    }
 
     public function getId()
     {
@@ -160,32 +236,16 @@ class Comment
         return $this->updatedAt;
     }
 
-    public function prePersist()
+    public static function getStatusCodes()
     {
-        $this->setCreatedAt(new \DateTime);
-        $this->setUpdatedAt(new \DateTime);
-    }
-
-    public static function getStatusList()
-    {
-        return array(
-            self::STATUS_MODERATE => 'moderate',
-            self::STATUS_INVALID => 'invalid',
-            self::STATUS_VALID   => 'valid',
-
-        );
+        return self::$statusCodes;
     }
 
     public function getStatusCode()
     {
-        $status = self::getStatusList();
-
-        return isset($status[$this->getStatus()]) ? $status[$this->getStatus()] : null;
-    }
-
-    public function preUpdate()
-    {
-        $this->setUpdatedAt(new \DateTime);
+        return isset(self::$statusCodes[$this->getStatus()])
+                ? self::$statusCodes[$this->getStatus()]
+                : null;
     }
 
     /**
@@ -207,6 +267,12 @@ class Comment
     {
         return $this->status;
     }
+
+    public static function getStatuses()
+    {
+        return array_keys(self::$statusCodes);
+    }
+
     /**
      * Set post
      *
