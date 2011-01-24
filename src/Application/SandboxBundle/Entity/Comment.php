@@ -27,9 +27,9 @@ class Comment
 
     protected $message;
 
-    protected $created_at;
+    protected $createdAt;
 
-    protected $updated_at;
+    protected $updatedAt;
 
     protected $status = self::STATUS_VALID;
 
@@ -127,7 +127,7 @@ class Comment
      */
     public function setCreatedAt($createdAt)
     {
-        $this->created_at = $createdAt;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -137,7 +137,7 @@ class Comment
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
@@ -147,7 +147,7 @@ class Comment
      */
     public function setUpdatedAt($updatedAt)
     {
-        $this->updated_at = $updatedAt;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
@@ -157,7 +157,7 @@ class Comment
      */
     public function getUpdatedAt()
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     public function prePersist()

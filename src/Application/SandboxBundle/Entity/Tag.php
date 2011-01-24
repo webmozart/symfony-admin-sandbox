@@ -19,9 +19,9 @@ class Tag
 
     protected $slug;
 
-    protected $created_at;
+    protected $createdAt;
 
-    protected $updated_at;
+    protected $updatedAt;
 
     protected $enabled;
 
@@ -101,7 +101,7 @@ class Tag
      */
     public function setCreatedAt($createdAt)
     {
-        $this->created_at = $createdAt;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -111,7 +111,7 @@ class Tag
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
@@ -121,7 +121,7 @@ class Tag
      */
     public function setUpdatedAt($updatedAt)
     {
-        $this->updated_at = $updatedAt;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
@@ -131,7 +131,7 @@ class Tag
      */
     public function getUpdatedAt()
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     public function prePersist()

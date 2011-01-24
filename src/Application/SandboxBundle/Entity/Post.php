@@ -29,17 +29,17 @@ class Post
 
     protected $enabled;
 
-    protected $publication_date_start;
+    protected $publicationDateStart;
 
-    protected $created_at;
+    protected $createdAt;
 
-    protected $updated_at;
+    protected $updatedAt;
 
-    protected $comments_enabled = true;
+    protected $commentsEnabled = true;
 
-    protected $comments_close_at;
+    protected $commentsCloseAt;
 
-    protected $comments_default_status;
+    protected $commentsDefaultStatus;
 
     protected $author;
 
@@ -63,7 +63,7 @@ class Post
     {
         $this->title = $title;
 
-        $this->setSlug(BaseTag::slugify($title));
+        $this->setSlug(Tag::slugify($title));
     }
 
     /**
@@ -163,7 +163,7 @@ class Post
      */
     public function setPublicationDateStart($publicationDateStart)
     {
-        $this->publication_date_start = $publicationDateStart;
+        $this->publicationDateStart = $publicationDateStart;
     }
 
     /**
@@ -173,7 +173,7 @@ class Post
      */
     public function getPublicationDateStart()
     {
-        return $this->publication_date_start;
+        return $this->publicationDateStart;
     }
 
     /**
@@ -183,7 +183,7 @@ class Post
      */
     public function setCreatedAt($createdAt)
     {
-        $this->created_at = $createdAt;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -193,7 +193,7 @@ class Post
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
@@ -203,7 +203,7 @@ class Post
      */
     public function setUpdatedAt($updatedAt)
     {
-        $this->updated_at = $updatedAt;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
@@ -213,7 +213,7 @@ class Post
      */
     public function getUpdatedAt()
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
@@ -302,7 +302,7 @@ class Post
      */
     public function setCommentsEnabled($commentsEnabled)
     {
-        $this->comments_enabled = $commentsEnabled;
+        $this->commentsEnabled = $commentsEnabled;
     }
 
     /**
@@ -312,7 +312,7 @@ class Post
      */
     public function getCommentsEnabled()
     {
-        return $this->comments_enabled;
+        return $this->commentsEnabled;
     }
 
     /**
@@ -322,7 +322,7 @@ class Post
      */
     public function setCommentsCloseAt($commentsCloseAt)
     {
-        $this->comments_close_at = $commentsCloseAt;
+        $this->commentsCloseAt = $commentsCloseAt;
     }
 
     /**
@@ -332,7 +332,7 @@ class Post
      */
     public function getCommentsCloseAt()
     {
-        return $this->comments_close_at;
+        return $this->commentsCloseAt;
     }
 
     /**
@@ -342,7 +342,7 @@ class Post
      */
     public function setCommentsDefaultStatus($commentsDefaultStatus)
     {
-        $this->comments_default_status = $commentsDefaultStatus;
+        $this->commentsDefaultStatus = $commentsDefaultStatus;
     }
 
     /**
@@ -352,7 +352,7 @@ class Post
      */
     public function getCommentsDefaultStatus()
     {
-        return $this->comments_default_status;
+        return $this->commentsDefaultStatus;
     }
 
     public function __toString()

@@ -36,20 +36,20 @@ class PostAdmin extends EntityAdmin
         'abstract',
         'content',
         'tags'     => array('options' => array('expanded' => true)),
-        'comments_close_at',
-        'comments_enabled',
-        'comments_default_status',
+        'commentsCloseAt',
+        'commentsEnabled',
+        'commentsDefaultStatus',
     );
 
     protected $formGroups = array(
         'General' => array(
-            'fields' => array('author', 'title', 'abstract', 'content'),
+            'fields' => array('title', 'abstract', 'content'),
         ),
         'Tags' => array(
             'fields' => array('tags'),
         ),
         'Options' => array(
-            'fields' => array('enabled', 'comments_close_at', 'comments_enabled', 'comments_default_status'),
+            'fields' => array('enabled', 'commentsCloseAt', 'commentsEnabled', 'commentsDefaultStatus'),
             'collapsed' => true
         )
     );
