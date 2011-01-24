@@ -1,0 +1,6 @@
+app/cache/*
+app/logs/*
+src/Sonata/BaseApplicationBundle/*
+src/Sonata/jQueryBundle/*
+src/vendor/*
+web/bundles/*

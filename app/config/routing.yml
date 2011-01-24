@@ -1,0 +1,12 @@
+homepage:
+    pattern:  /
+    defaults: { _controller: FrameworkBundle:Default:index }
+
+# Admin routes
+base_application:
+    resource: '@SonataBaseApplicationBundle/Resources/config/routing/base_application.xml'
+    prefix: /admin
+
+admin:
+    resource: '@SonataBaseApplicationBundle/Resources/config/routing/base_application.admin'
+    prefix: /admin

@@ -1,0 +1,37 @@
+app.config:
+    charset:       UTF-8
+    error_handler: null
+    csrf_protection: { enabled: true, secret: xxxxxxxxxx }
+    router:        { resource: "%kernel.root_dir%/config/routing.yml" }
+    validation:    { enabled: true, annotations: true }
+    form: test
+    templating:
+        escaping:       htmlspecialchars
+        #assets_version: SomeVersionScheme
+        engine: twig
+    session:
+        default_locale: en
+        lifetime: 3600
+        
+## Twig Configuration
+twig.config: 
+    debug: "%kernel.debug%"
+
+## Doctrine Configuration
+#doctrine.dbal:
+#    dbname:   xxxxxxxx
+#    user:     xxxxxxxx
+#    password: ~
+#doctrine.orm: ~
+
+## Swiftmailer Configuration
+#swiftmailer.config:
+#    transport:  smtp
+#    encryption: ssl
+#    auth_mode:  login
+#    host:       smtp.gmail.com
+#    username:   xxxxxxxx
+#    password:   xxxxxxxx
+
+# Admin Configuration
+base_application.config: ~

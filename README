@@ -1,0 +1,78 @@
+README
+======
+
+What is the Symfony2 Admin Sandbox?
+-----------------------------------
+This sandbox has two purposes: To let people try the new admin in a simple 
+fashion and to ease collaboration of different developers working on the
+admin. For that reason, the sandbox should always be up-to-date to the latest 
+Symfony2 and BaseApplicationBundle versions.
+
+Installation
+------------
+To install the sandbox, clone the repository:
+
+    git clone git@github.com:bschussek/symfony-admin-sandbox.git
+
+Then you need to update the project dependencies:
+
+    cd symfony-admin-sandbox/src
+    ../bin/install_vendors.sh
+    
+In the next step publish all assets to the web directory.
+
+    cd ..
+    php app/console assets:install web
+    
+Finally, create a virtual host for your new application and add the name of the
+virtual host to your "hosts" file. After restarting the server, you should
+be able to open http://symfony-admin-sandbox/admin/dashboard in your browser.
+
+Working With Modified Vendors
+-----------------------------
+If you want to use the sandbox for development of Symfony2 or of the
+BaseApplicationBundle, you will want to use your forks of these projects.
+To do that, install the project using the steps listed above. Then remove
+the directory that you want to replace and checkout your for instead.
+
+    cd symfony-admin-sandbox/src/Sonata
+    rm -rf BaseApplicationBundle
+    git checkout <my-fork> BaseApplicationBundle
+    
+Alternatively, you can include the vendor via a symlink. The advantage of this
+method is that the vendor project can be located somewhere else in your
+file system.
+
+    cd symfony-admin-sandbox/src/Sonata
+    rm -rf BaseApplicationBundle
+    ln -s <target> BaseApplicationBundle
+    
+In both cases you should adapt the "update_vendors.sh" script to not update
+this custom project. First, create your own branch:
+
+    git checkout -b local master
+    
+Then comment out the following line in "update_vendors.sh" and commit the
+changes. Change
+
+    # BaseApplicationBundle
+    cd $DIR/Sonata/BaseApplicationBundle && git pull
+
+to
+
+    # BaseApplicationBundle
+    # cd $DIR/Sonata/BaseApplicationBundle && git pull
+
+Updating
+--------
+If you want to update the sandbox to the latest version, you first need to
+pull in the changes from the server:
+
+    git pull
+    
+Then you need to update the project dependencies:
+
+    cd src
+    ../bin/update_vendors.sh
+    
+Now your project should be up-to-date.
