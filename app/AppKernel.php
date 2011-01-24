@@ -29,6 +29,9 @@ class AppKernel extends Kernel
             // bundles for the admin functionality
             new Sonata\BaseApplicationBundle\SonataBaseApplicationBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
+
+            // application specific files
+            new Application\SandboxBundle\SandboxBundle(),
         );
 
         if ($this->isDebug()) {
