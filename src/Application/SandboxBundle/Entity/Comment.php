@@ -13,6 +13,7 @@ namespace Application\SandboxBundle\Entity;
 
 /**
  * @orm:Entity
+ * @orm:HasLifecycleCallbacks
  */
 class Comment
 {
@@ -68,20 +69,20 @@ class Comment
     /**
      * @orm:Column(type="datetime")
      * @validation:AssertType("\DateTime")
-     * @validation:NotNull
+     * @validation:NotNull(groups="PrePersist")
      */
     protected $createdAt;
 
     /**
      * @orm:Column(type="datetime")
      * @validation:AssertType("\DateTime")
-     * @validation:NotNull
+     * @validation:NotNull(groups="PrePersist")
      */
     protected $updatedAt;
 
     /**
      * @orm:Column(type="integer")
-     * @validation:AssertType("integer")
+     * @validation:AssertType("numeric")
      * @validation:Choice(callback="getStatuses")
      * @validation:NotNull
      */
@@ -255,7 +256,7 @@ class Comment
      */
     public function setStatus($status)
     {
-        $this->status = $status;
+        $this->status = (integer)$status;
     }
 
     /**

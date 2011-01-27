@@ -14,31 +14,18 @@ namespace Application\SandboxBundle\Admin;
 use Sonata\BaseApplicationBundle\Admin\EntityAdmin;
 use Sonata\BaseApplicationBundle\Admin\FieldDescription;
 use Sonata\BaseApplicationBundle\Filter\Filter;
-
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\ChoiceField;
 use Application\SandboxBundle\Entity\Comment;
 
 class PostAdmin extends EntityAdmin
 {
-
     protected $class = 'Application\SandboxBundle\Entity\Post';
 
     protected $listFields = array(
         'title' => array('identifier' => true),
-//        'author',
         'enabled',
         'comments_enabled',
-    );
-
-    protected $formFields = array(
-//        'author' => array('edit' => 'list'),
-        'enabled',
-        'title',
-        'abstract',
-        'content',
-        'tags'     => array('options' => array('expanded' => true)),
-        'commentsCloseAt',
-        'commentsEnabled',
-        'commentsDefaultStatus',
     );
 
     protected $formGroups = array(
@@ -67,16 +54,18 @@ class PostAdmin extends EntityAdmin
 
     protected $baseRoutePattern = '/sandbox/post';
 
-    public function configureFormFields()
+    protected function configureFormFields(Form $form)
     {
-        if(isset($this->formFields['comments_default_status'])) {
-            $this->formFields['comments_default_status']->setType('choice');
-
-            $options = $this->formFields['comments_default_status']->getOption('form_field_options', array());
-            $options['choices'] = Comment::getStatusList();
-
-            $this->formFields['comments_default_status']->setOption('form_field_options', $options);
-        }
+        $form->add('enabled');
+        $form->add('title');
+        $form->add('abstract');
+        $form->add('content');
+        $form->add('tags', array('property' => 'name', 'expanded' => true));
+        $form->add('commentsCloseAt');
+        $form->add('commentsEnabled');
+        $form->add(new ChoiceField('commentsDefaultStatus', array(
+            'choices' => Comment::getStatusCodes()
+        )));
     }
 
     public function configureFilterFields()

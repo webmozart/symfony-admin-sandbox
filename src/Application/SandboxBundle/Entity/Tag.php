@@ -13,6 +13,7 @@ namespace Application\SandboxBundle\Entity;
 
 /**
  * @orm:Entity
+ * @orm:HasLifecycleCallbacks
  */
 class Tag
 {
@@ -43,12 +44,14 @@ class Tag
     /**
      * @orm:Column(type="datetime")
      * @validation:AssertType("\DateTime")
+     * @validation:NotNull(groups="PrePersist")
      */
     protected $createdAt;
 
     /**
      * @orm:Column(type="datetime")
      * @validation:AssertType("\DateTime")
+     * @validation:NotNull(groups="PrePersist")
      */
     protected $updatedAt;
 
@@ -61,8 +64,6 @@ class Tag
 
     /**
      * @orm:ManyToMany(targetEntity="Post", inversedBy="tags")
-     * @validation:AssertType("Application\SandboxBundle\Entity\Post")
-     * @validation:NotNull
      */
     protected $posts;
 

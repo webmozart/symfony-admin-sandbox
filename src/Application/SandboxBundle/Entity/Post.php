@@ -12,7 +12,8 @@
 namespace Application\SandboxBundle\Entity;
 
 /**
- * @orm:Entity(repositoryClass="PostRepository")
+ * @orm:Entity(repositoryClass="Application\SandboxBundle\Entity\PostRepository")
+ * @orm:HasLifecycleCallbacks
  */
 class Post
 {
@@ -25,9 +26,9 @@ class Post
     protected $id;
 
     /**
-     * @orm:Column(type="string", length="255")
+     * @orm:Column(type="string", length="30")
      * @validation:AssertType("string")
-     * @validation:MaxLength(255)
+     * @validation:MaxLength(30)
      * @validation:NotNull
      */
     protected $title;
@@ -56,14 +57,18 @@ class Post
 
     /**
      * @orm:ManyToMany(targetEntity="Tag", inversedBy="posts")
-     * @validation:AssertType("Application\SandboxBundle\Entity\Tag")
+     * @orm:JoinTable(name="posts_tags",
+     *     joinColumns={@orm:JoinColumn(name="post_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@orm:JoinColumn(name="comment_id", referencedColumnName="id")}
+     * )
+     * @validation:Valid
      * @validation:NotNull
      */
     protected $tags;
 
     /**
      * @orm:OneToMany(targetEntity="Comment", mappedBy="post")
-     * @validation:AssertType("Application\SandboxBundle\Entity\Comment")
+     * @validation:Valid
      * @validation:NotNull
      */
     protected $comments;
@@ -84,14 +89,14 @@ class Post
     /**
      * @orm:Column(type="datetime")
      * @validation:AssertType("\DateTime")
-     * @validation:NotNull
+     * @validation:NotNull(groups="PrePersist")
      */
     protected $createdAt;
 
     /**
      * @orm:Column(type="datetime")
      * @validation:AssertType("\DateTime")
-     * @validation:NotNull
+     * @validation:NotNull(groups="PrePersist")
      */
     protected $updatedAt;
 
@@ -118,7 +123,6 @@ class Post
     /**
      * @orm:ManyToOne(targetEntity="Author")
      * @validation:AssertType("Application\SandboxBundle\Entity\Author")
-     * @validation:NotNull
      */
     protected $author;
 
@@ -427,7 +431,7 @@ class Post
      */
     public function setCommentsDefaultStatus($commentsDefaultStatus)
     {
-        $this->commentsDefaultStatus = $commentsDefaultStatus;
+        $this->commentsDefaultStatus = (integer)$commentsDefaultStatus;
     }
 
     /**

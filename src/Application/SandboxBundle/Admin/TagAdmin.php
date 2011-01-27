@@ -12,6 +12,7 @@
 namespace Application\SandboxBundle\Admin;
 
 use Sonata\BaseApplicationBundle\Admin\EntityAdmin;
+use Symfony\Component\Form\Form;
 
 class TagAdmin extends EntityAdmin
 {
@@ -23,16 +24,16 @@ class TagAdmin extends EntityAdmin
         'enabled',
     );
 
-    protected $formFields = array(
-        'id',
-        'name',
-        'enabled'
-    );
-
     // don't know yet how to get this value
     protected $baseControllerName = 'SandboxBundle:TagAdmin';
 
     protected $baseRouteName = 'admin_sandbox_tag';
 
     protected $baseRoutePattern = '/sandbox/tag';
+
+    protected function configureFormFields(Form $form)
+    {
+        $form->add('name');
+        $form->add('enabled');
+    }
 }

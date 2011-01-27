@@ -13,6 +13,8 @@ namespace Application\SandboxBundle\Admin;
 
 use Sonata\BaseApplicationBundle\Admin\EntityAdmin;
 use Application\SandboxBundle\Entity\Comment;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\ChoiceField;
 
 class CommentAdmin extends EntityAdmin
 {
@@ -28,15 +30,6 @@ class CommentAdmin extends EntityAdmin
         'message',
     );
 
-    protected $formFields = array(
-        'name',
-        'email',
-        'url',
-        'message',
-        'post' => array('edit' => 'list'),
-        'status' => array('type' => 'choice'),
-    );
-
     // don't know yet how to get this value
     protected $baseControllerName = 'SandboxBundle:CommentAdmin';
 
@@ -44,20 +37,22 @@ class CommentAdmin extends EntityAdmin
 
     protected $baseRoutePattern = '/sandbox/comment';
 
-    public function configureFormFields()
+    protected function configureFormFields(Form $form)
     {
-
-        $this->formFields['status']->setType('choice');
-        $options = $this->formFields['status']->getOption('form_field_options', array());
-        $options['choices'] = Comment::getStatusList();
-//        $options['expanded'] = true;
-
-        $this->formFields['status']->setOption('form_field_options', $options);
+        $form->add('name');
+        $form->add('email');
+        $form->add('url');
+        $form->add('message');
+        $form->add('post', array('required' => false));
+        $form->add(new ChoiceField('status', array(
+            'choices' => Comment::getStatusCodes(),
+            'required' => false,
+            'empty_value' => 'none',
+        )));
     }
 
     public function getBatchActions()
     {
-
         return array(
             'delete'    => 'action_delete',
             'enabled'   => 'enable_comments',
