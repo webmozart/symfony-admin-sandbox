@@ -24,6 +24,11 @@ class TagAdmin extends EntityAdmin
         'enabled',
     );
 
+    protected $formFields = array(
+        'name',
+        'enabled'
+    );
+
     // don't know yet how to get this value
     protected $baseControllerName = 'SandboxBundle:TagAdmin';
 
@@ -31,9 +36,9 @@ class TagAdmin extends EntityAdmin
 
     protected $baseRoutePattern = '/sandbox/tag';
 
-    protected function configureFormFields(Form $form)
-    {
-        $form->add('name');
-        $form->add('enabled');
-    }
+//    protected function configureFormFields(Form $form)
+//    {
+//        $form->add('name');
+//        $form->add('enabled');
+//    }
 }

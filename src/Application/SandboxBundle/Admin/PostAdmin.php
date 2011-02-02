@@ -28,9 +28,21 @@ class PostAdmin extends EntityAdmin
         'comments_enabled',
     );
 
+    protected $formFields = array(
+        'author'  => array('edit' => 'list'),
+        'title',
+        'abstract',
+        'content',
+        'tags'      => array('form_field_options' => array('expanded' => true, 'multiple' => true)),
+        'enabled',
+        'commentsCloseAt',
+        'commentsEnabled',
+        'commentsDefaultStatus'
+    );
+    
     protected $formGroups = array(
         'General' => array(
-            'fields' => array('title', 'abstract', 'content'),
+            'fields' => array('author', 'title', 'abstract', 'content'),
         ),
         'Tags' => array(
             'fields' => array('tags'),
@@ -54,19 +66,19 @@ class PostAdmin extends EntityAdmin
 
     protected $baseRoutePattern = '/sandbox/post';
 
-    protected function configureFormFields(Form $form)
-    {
-        $form->add('enabled');
-        $form->add('title');
-        $form->add('abstract');
-        $form->add('content');
-        $form->add('tags', array('property' => 'name', 'expanded' => true));
-        $form->add('commentsCloseAt');
-        $form->add('commentsEnabled');
-        $form->add(new ChoiceField('commentsDefaultStatus', array(
-            'choices' => Comment::getStatusCodes()
-        )));
-    }
+//    protected function configureFormFields(Form $form)
+//    {
+//        $form->add('enabled');
+//        $form->add('title');
+//        $form->add('abstract');
+//        $form->add('content');
+//        $form->add('tags', array('property' => 'name', 'expanded' => true));
+//        $form->add('commentsCloseAt');
+//        $form->add('commentsEnabled');
+//        $form->add(new ChoiceField('commentsDefaultStatus', array(
+//            'choices' => Comment::getStatusCodes()
+//        )));
+//    }
 
     public function configureFilterFields()
     {

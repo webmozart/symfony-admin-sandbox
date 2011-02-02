@@ -16,35 +16,27 @@ use Application\SandboxBundle\Entity\Comment;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\ChoiceField;
 
-class CommentAdmin extends EntityAdmin
+class AuthorAdmin extends EntityAdmin
 {
 
-    protected $class = 'Application\SandboxBundle\Entity\Comment';
+    protected $class = 'Application\SandboxBundle\Entity\Author';
 
     protected $listFields = array(
         'name' => array('identifier' => true),
-        'getStatusCode' => array('label' => 'status_code'),
-        'post',
         'email',
-        'url',
-        'message',
     );
 
     protected $formFields = array(
         'name',
-        'email',
-        'url',
-        'message',
-        'post' => array('widget_form_options' => array('required' => false)),
+        'email'
     );
 
     // don't know yet how to get this value
-    protected $baseControllerName = 'SandboxBundle:CommentAdmin';
+    protected $baseControllerName = 'SandboxBundle:AuthorAdmin';
 
-    protected $baseRouteName = 'admin_sandbox_comment';
+    protected $baseRouteName = 'admin_sandbox_author';
 
-    protected $baseRoutePattern = '/sandbox/comment';
-
+    protected $baseRoutePattern = '/sandbox/author';
 
 //    protected function configureFormFields(Form $form)
 //    {

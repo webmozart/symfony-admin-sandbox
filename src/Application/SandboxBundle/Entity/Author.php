@@ -46,7 +46,7 @@ class Author
         $this->name = $name;
     }
 
-    public function getEmail($email)
+    public function getEmail()
     {
         return $this->email;
     }
@@ -54,5 +54,10 @@ class Author
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }
