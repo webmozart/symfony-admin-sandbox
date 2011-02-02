@@ -14,6 +14,7 @@ fi
 if [ -d "$SONATA" ]; then
   rm -rf $SONATA/BaseApplicationBundle
   rm -rf $SONATA/jQueryBundle
+  rm -rf $SONATA/BluePrintBundle
 else
   mkdir $SONATA
 fi
@@ -60,3 +61,6 @@ git clone git://github.com/sonata-project/BaseApplicationBundle.git $SONATA/Base
 
 # jQueryBundle (Branch master)
 git clone git://github.com/sonata-project/jQueryBundle.git $SONATA/jQueryBundle
+
+# BluePrintBundle (Branch master)
+git clone git://github.com/sonata-project/BluePrintBundle.git $SONATA/BluePrintBundle
