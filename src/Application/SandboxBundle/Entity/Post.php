@@ -67,7 +67,7 @@ class Post
     protected $tags;
 
     /**
-     * @orm:OneToMany(targetEntity="Comment", mappedBy="post")
+     * @orm:OneToMany(targetEntity="Comment", mappedBy="post", cascade={"persist"})
      * @validation:Valid
      * @validation:NotNull
      */

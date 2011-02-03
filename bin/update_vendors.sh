@@ -18,6 +18,9 @@ cd $VENDOR/doctrine-common && git fetch origin && git reset --hard 2.0.0
 # Doctrine migrations
 cd $VENDOR/doctrine-migrations && git pull
 
+# Doctrine fixtures
+cd $VENDOR/doctrine-data-fixtures && git pull
+
 # Doctrine MongoDB
 cd $VENDOR/doctrine-mongodb && git fetch origin && git reset --hard 1.0.0BETA1
 
@@ -36,3 +39,6 @@ cd $DIR/Sonata/BaseApplicationBundle && git pull
 
 # jQueryBundle
 cd $DIR/Sonata/jQueryBundle && git pull
+
+# jQueryBundle
+cd $DIR/Sonata/BluePrintBundle && git pull

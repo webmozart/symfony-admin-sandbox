@@ -40,6 +40,9 @@ git reset --hard 2.0.0
 # Doctrine migrations (Branch master)
 git clone git://github.com/doctrine/migrations.git $VENDOR/doctrine-migrations
 
+# Doctrine fixtures
+git clone git://github.com/doctrine/data-fixtures.git $VENDOR/doctrine-data-fixtures
+
 # Doctrine MongoDB (Tag 1.0.0BETA1)
 git clone git://github.com/doctrine/mongodb-odm.git $VENDOR/doctrine-mongodb
 cd $VENDOR/doctrine-mongodb

@@ -1,3 +1,6 @@
+imports:
+  - { resource: admin.yml }
+
 app.config:
     charset:       UTF-8
     error_handler: null
@@ -21,8 +24,8 @@ twig.config:
 doctrine.dbal:
     driver:   pdo_mysql
     dbname:   symfony_admin_sandbox
-    user:     adminsandbox
-    password: adminsandbox
+    host:     127.0.0.1
+    password: 
     
 doctrine.orm:
     mappings:
@@ -37,26 +40,3 @@ doctrine.orm:
 #    username:   xxxxxxxx
 #    password:   xxxxxxxx
 
-# Admin Configuration
-base_application.config:
-    entities:
-        post:
-            label:      Post
-            group:      Blog
-            class:      Application\SandboxBundle\Admin\PostAdmin
-            entity:     Application\SandboxBundle\Entity\Post
-            controller: Application\SandboxBundle\Controller\PostAdminController
-
-        tag:
-            label:      Tag
-            group:      Blog
-            class:      Application\SandboxBundle\Admin\TagAdmin
-            entity:     Application\SandboxBundle\Entity\Tag
-            controller: Application\SandboxBundle\Controller\TagAdminController
-
-        comment:
-            label:      Comment
-            group:      Blog
-            class:      Application\SandboxBundle\Admin\CommentAdmin
-            entity:     Application\SandboxBundle\Entity\Comment
-            controller: Application\SandboxBundle\Controller\CommentAdminController

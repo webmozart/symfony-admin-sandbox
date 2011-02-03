@@ -28,6 +28,21 @@ Finally, create a virtual host for your new application and add the name of the
 virtual host to your "hosts" file. After restarting the server, you should
 be able to open http://symfony-admin-sandbox/admin/dashboard in your browser.
 
+Fixtures
+--------
+
+Configure your database connection in the config.yml file.
+
+Create the database and add the table.
+
+    php app/console doctrine:database:create
+    php app/console doctrine:schema:create
+
+Load the fixtures.
+
+    php app/console doctrine:data:load
+    
+
 Working With Modified Vendors
 -----------------------------
 If you want to use the sandbox for development of Symfony2 or of the

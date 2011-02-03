@@ -1,0 +1,32 @@
+# Admin Configuration
+base_application.config:
+    entities:
+
+        author:
+            label:      Author
+            group:      User
+            class:      Application\SandboxBundle\Admin\AuthorAdmin
+            entity:     Application\SandboxBundle\Entity\Author
+            controller: Application\SandboxBundle\Controller\AuthorAdminController
+
+
+        post:
+            label:      Post
+            group:      Blog
+            class:      Application\SandboxBundle\Admin\PostAdmin
+            entity:     Application\SandboxBundle\Entity\Post
+            controller: Application\SandboxBundle\Controller\PostAdminController
+
+        tag:
+            label:      Tag
+            group:      Blog
+            class:      Application\SandboxBundle\Admin\TagAdmin
+            entity:     Application\SandboxBundle\Entity\Tag
+            controller: Application\SandboxBundle\Controller\TagAdminController
+
+        comment:
+            label:      Comment
+            group:      Blog
+            class:      Application\SandboxBundle\Admin\CommentAdmin
+            entity:     Application\SandboxBundle\Entity\Comment
+            controller: Application\SandboxBundle\Controller\CommentAdminController
