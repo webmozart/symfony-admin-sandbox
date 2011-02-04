@@ -11,25 +11,15 @@
 
 namespace Application\SandboxBundle\Admin;
 
+use Sonata\BaseApplicationBundle\Form\FormMapper;
+use Sonata\BaseApplicationBundle\Datagrid\DatagridMapper;
+use Sonata\BaseApplicationBundle\Datagrid\ListMapper;
 use Sonata\BaseApplicationBundle\Admin\EntityAdmin;
-use Application\SandboxBundle\Entity\Comment;
-use Symfony\Component\Form\Form;
-use Symfony\Component\Form\ChoiceField;
 
 class AuthorAdmin extends EntityAdmin
 {
 
     protected $class = 'Application\SandboxBundle\Entity\Author';
-
-    protected $listFields = array(
-        'name' => array('identifier' => true),
-        'email',
-    );
-
-    protected $formFields = array(
-        'name',
-        'email'
-    );
 
     // don't know yet how to get this value
     protected $baseControllerName = 'SandboxBundle:AuthorAdmin';
@@ -38,20 +28,24 @@ class AuthorAdmin extends EntityAdmin
 
     protected $baseRoutePattern = '/sandbox/author';
 
-//    protected function configureFormFields(Form $form)
-//    {
-//        $form->add('name');
-//        $form->add('email');
-//        $form->add('url');
-//        $form->add('message');
-//        $form->add('post', array('required' => false));
-//        $form->add(new ChoiceField('status', array(
-//            'choices' => Comment::getStatusCodes(),
-//            'required' => false,
-//            'empty_value' => 'none',
-//        )));
-//    }
+    protected function configureFormFields(FormMapper $form)
+    {
+        $form->add('name');
+        $form->add('email');
+    }
 
+    protected function configureListFields(ListMapper $list)
+    {
+        $list->add('name', array('identifier' => true));
+        $list->add('email');
+    }
+
+    protected function configureDatagridFilters(DatagridMapper $datagrid)
+    {
+        $datagrid->add('name');
+        $datagrid->add('email');
+    }
+    
     public function getBatchActions()
     {
         return array(

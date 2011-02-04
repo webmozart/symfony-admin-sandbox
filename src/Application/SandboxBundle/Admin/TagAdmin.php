@@ -11,34 +11,36 @@
 
 namespace Application\SandboxBundle\Admin;
 
+use Sonata\BaseApplicationBundle\Form\FormMapper;
+use Sonata\BaseApplicationBundle\Datagrid\DatagridMapper;
+use Sonata\BaseApplicationBundle\Datagrid\ListMapper;
 use Sonata\BaseApplicationBundle\Admin\EntityAdmin;
-use Symfony\Component\Form\Form;
 
 class TagAdmin extends EntityAdmin
 {
     protected $class = 'Application\SandboxBundle\Entity\Tag';
 
-    protected $listFields = array(
-        'name' => array('identifier' => true),
-        'slug',
-        'enabled',
-    );
-
-    protected $formFields = array(
-        'name',
-        'enabled'
-    );
-
-    // don't know yet how to get this value
     protected $baseControllerName = 'SandboxBundle:TagAdmin';
 
     protected $baseRouteName = 'admin_sandbox_tag';
 
     protected $baseRoutePattern = '/sandbox/tag';
 
-//    protected function configureFormFields(Form $form)
-//    {
-//        $form->add('name');
-//        $form->add('enabled');
-//    }
+    protected function configureFormFields(FormMapper $form)
+    {
+        $form->add('name');
+        $form->add('enabled');
+    }
+
+    protected function configureListFields(ListMapper $list)
+    {
+        $list->add('name', array('identifier' => true));
+        $list->add('slug');
+        $list->add('enabled');
+    }
+
+    protected function configureDatagridFilters(DatagridMapper $datagrid)
+    {
+        $datagrid->add('name');
+    }
 }

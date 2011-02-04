@@ -11,9 +11,13 @@
 
 namespace Application\SandboxBundle\Admin;
 
+use Sonata\BaseApplicationBundle\Form\FormMapper;
+use Sonata\BaseApplicationBundle\Datagrid\DatagridMapper;
+use Sonata\BaseApplicationBundle\Datagrid\ListMapper;
 use Sonata\BaseApplicationBundle\Admin\EntityAdmin;
+use Sonata\BaseApplicationBundle\Admin\FieldDescription;
+
 use Application\SandboxBundle\Entity\Comment;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\ChoiceField;
 
 class CommentAdmin extends EntityAdmin
@@ -21,24 +25,6 @@ class CommentAdmin extends EntityAdmin
 
     protected $class = 'Application\SandboxBundle\Entity\Comment';
 
-    protected $listFields = array(
-        'name' => array('identifier' => true),
-        'getStatusCode' => array('label' => 'status_code'),
-        'post',
-        'email',
-        'url',
-        'message',
-    );
-
-    protected $formFields = array(
-        'name',
-        'email',
-        'url',
-        'message',
-        'post' => array('widget_form_options' => array('required' => false)),
-    );
-
-    // don't know yet how to get this value
     protected $baseControllerName = 'SandboxBundle:CommentAdmin';
 
     protected $baseRouteName = 'admin_sandbox_comment';
@@ -46,19 +32,29 @@ class CommentAdmin extends EntityAdmin
     protected $baseRoutePattern = '/sandbox/comment';
 
 
-//    protected function configureFormFields(Form $form)
-//    {
-//        $form->add('name');
-//        $form->add('email');
-//        $form->add('url');
-//        $form->add('message');
-//        $form->add('post', array('required' => false));
-//        $form->add(new ChoiceField('status', array(
-//            'choices' => Comment::getStatusCodes(),
-//            'required' => false,
-//            'empty_value' => 'none',
-//        )));
-//    }
+    protected function configureFormFields(FormMapper $form)
+    {
+        $form->add('name');
+        $form->add('email');
+        $form->add('url');
+        $form->add('message');
+        $form->add('post');
+    }
+
+    protected function configureListFields(ListMapper $list)
+    {
+        $list->add('name', array('identifier' => true));
+        $list->add('getStatusCode', array('type' => 'string'));
+        $list->add('email');
+        $list->add('post');
+    }
+
+    protected function configureDatagridFilters(DatagridMapper $datagrid)
+    {
+        $datagrid->add('name');
+        $datagrid->add('email');
+    }
+    
 
     public function getBatchActions()
     {

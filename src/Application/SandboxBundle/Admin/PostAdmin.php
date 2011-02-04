@@ -11,35 +11,18 @@
 
 namespace Application\SandboxBundle\Admin;
 
+use Sonata\BaseApplicationBundle\Form\FormMapper;
+use Sonata\BaseApplicationBundle\Datagrid\DatagridMapper;
+use Sonata\BaseApplicationBundle\Datagrid\ListMapper;
 use Sonata\BaseApplicationBundle\Admin\EntityAdmin;
 use Sonata\BaseApplicationBundle\Admin\FieldDescription;
-use Sonata\BaseApplicationBundle\Filter\Filter;
-use Symfony\Component\Form\Form;
-use Symfony\Component\Form\ChoiceField;
+
 use Application\SandboxBundle\Entity\Comment;
 
 class PostAdmin extends EntityAdmin
 {
     protected $class = 'Application\SandboxBundle\Entity\Post';
 
-    protected $listFields = array(
-        'title' => array('identifier' => true),
-        'enabled',
-        'comments_enabled',
-    );
-
-    protected $formFields = array(
-        'author'  => array('edit' => 'list'),
-        'title',
-        'abstract',
-        'content',
-        'tags'      => array('form_field_options' => array('expanded' => true, 'multiple' => true)),
-        'enabled',
-        'commentsCloseAt',
-        'commentsEnabled',
-        'commentsDefaultStatus'
-    );
-    
     protected $formGroups = array(
         'General' => array(
             'fields' => array('author', 'title', 'abstract', 'content'),
@@ -53,12 +36,6 @@ class PostAdmin extends EntityAdmin
         )
     );
 
-    protected $filterFields = array(
-        'title',
-        'enabled',
-        'tags' => array('filter_field_options' => array('expanded' => true, 'multiple' => true))
-    );
-
     // don't know yet how to get this value
     protected $baseControllerName = 'SandboxBundle:PostAdmin';
 
@@ -66,29 +43,38 @@ class PostAdmin extends EntityAdmin
 
     protected $baseRoutePattern = '/sandbox/post';
 
-//    protected function configureFormFields(Form $form)
-//    {
-//        $form->add('enabled');
-//        $form->add('title');
-//        $form->add('abstract');
-//        $form->add('content');
-//        $form->add('tags', array('property' => 'name', 'expanded' => true));
-//        $form->add('commentsCloseAt');
-//        $form->add('commentsEnabled');
-//        $form->add(new ChoiceField('commentsDefaultStatus', array(
-//            'choices' => Comment::getStatusCodes()
-//        )));
-//    }
-
-    public function configureFilterFields()
+    protected function configureFormFields(FormMapper $form)
     {
-        $this->filterFields['with_open_comments'] = new FieldDescription;
-        $this->filterFields['with_open_comments']->setName('with_open_comments');
-        $this->filterFields['with_open_comments']->setTemplate('SonataBaseApplicationBundle:CRUD:filter_callback.twig.html');
-        $this->filterFields['with_open_comments']->setType('callback');
-        $this->filterFields['with_open_comments']->setOption('filter_options', array(
-            'filter' => array($this, 'getWithOpenCommentFilter'),
-            'field'  => array($this, 'getWithOpenCommentField')
+        $form->add('author', array(), array('edit' => 'list'));
+        $form->add('title');
+        $form->add('abstract');
+        $form->add('content');
+        $form->add('tags', array(), array('form_field_options' => array('expanded' => true, 'multiple' => true)));
+        $form->add('enabled');
+        $form->add('commentsCloseAt');
+        $form->add('commentsEnabled');
+        $form->add(new \Symfony\Component\Form\ChoiceField('commentsDefaultStatus', array('choices' => Comment::getStatusCodes())));
+    }
+
+    protected function configureListFields(ListMapper $list)
+    {
+        $list->add('title', array('identifier' => true));
+        $list->add('enabled');
+        $list->add('commentsEnabled');
+    }
+
+    protected function configureDatagridFilters(DatagridMapper $datagrid)
+    {
+        $datagrid->add('title');
+        $datagrid->add('enabled');
+        $datagrid->add('tags', array('filter_field_options' => array('expanded' => true, 'multiple' => true)));
+        $datagrid->add('with_open_comments', array(
+            'template' => 'SonataBaseApplicationBundle:CRUD:filter_callback.twig.html',
+            'type' => 'callback',
+            'filter_options' => array(
+                'filter' => array($this, 'getWithOpenCommentFilter'),
+                'field'  => array($this, 'getWithOpenCommentField')
+            )
         ));
     }
 
@@ -104,7 +90,7 @@ class PostAdmin extends EntityAdmin
         $queryBuilder->setParameter('status', \Application\SandboxBundle\Entity\Comment::STATUS_MODERATE);
     }
 
-    public function getWithOpenCommentField(Filter $filter)
+    public function getWithOpenCommentField($filter)
     {
 
         return new \Symfony\Component\Form\CheckboxField(
