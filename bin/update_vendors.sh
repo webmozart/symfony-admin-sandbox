@@ -40,5 +40,5 @@ cd $DIR/Sonata/BaseApplicationBundle && git pull
 # jQueryBundle
 cd $DIR/Sonata/jQueryBundle && git pull
 
-# jQueryBundle
+# BluePrintBundle
 cd $DIR/Sonata/BluePrintBundle && git pull

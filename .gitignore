@@ -2,5 +2,6 @@ app/cache/*
 app/logs/*
 src/Sonata/BaseApplicationBundle/*
 src/Sonata/jQueryBundle/*
+src/Sonata/BluePrintBundle/*
 src/vendor/*
 web/bundles/*
