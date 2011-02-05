@@ -1,5 +1,6 @@
 imports:
   - { resource: admin.yml }
+  - { resource: doctrine.yml }
 
 app.config:
     charset:       UTF-8
@@ -19,17 +20,6 @@ app.config:
 ## Twig Configuration
 twig.config: 
     debug: "%kernel.debug%"
-
-## Doctrine Configuration
-doctrine.dbal:
-    driver:   pdo_mysql
-    dbname:   symfony_admin_sandbox
-    host:     127.0.0.1
-    password: 
-    
-doctrine.orm:
-    mappings:
-        SandboxBundle: ~
 
 ## Swiftmailer Configuration
 #swiftmailer.config:
