@@ -8,9 +8,7 @@ app.config:
     csrf_protection: { enabled: true, secret: xxxxxxxxxx }
     router:        { resource: "%kernel.root_dir%/config/routing.yml" }
     validation:    { enabled: true, annotations: true }
-    form: test
     templating:
-        escaping:       htmlspecialchars
         #assets_version: SomeVersionScheme
         engine: twig
     session:
